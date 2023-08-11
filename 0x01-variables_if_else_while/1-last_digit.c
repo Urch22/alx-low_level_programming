@@ -9,23 +9,23 @@
 int main(void)
 {
 	int n;
-	int lasted;
+	int k;
 
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
-	lasted = n % 10;
+	k = n % 10;
 
-	if (lasted > 5)
+	if (k > 5)
 	{
-		printf("Lasted digit of %d is %d and is greater than 5\n", n, lasted);
+		printf("Lasted digit of %d is %d and is greater than 5\n", n, k);
 	}
-	else if (lasted == 0)
+	else if (k == 0)
 	{
-		printf("Lasted digit of %d is %d and is 0\n", n, lasted);
+		printf("Lasted digit of %d is %d and is 0\n", n, k);
 	}
-	else
+	else if (k < 6 && k != 0)
 	{
-		printf("Lasted digit of %d is %d and is less than 6 and not 0\n", n, lasted);
+		printf("Lasted digit of %d is %d and is less than 6 and not 0\n", n, k);
 	}
 	return (0);
 }
