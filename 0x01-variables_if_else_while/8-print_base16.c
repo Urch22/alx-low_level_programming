@@ -1,23 +1,24 @@
 #include <stdio.h>
 /**
- * main - Entry point
+ * main - prints hexadecimal numbers
  *
- * Return: Always 0 (Success)
+ * Return: (0)
+ *
  */
 int main(void)
 {
-	char n;
-	int m;
+	char numbers = '0';
+	char letters = 'a';
 
-	n = 'a';
-	m = 0;
-	while (m < 10; m++)
+	while (numbers <= '9')
 	{
-		putchar(m + 0);
+		putchar(numbers);
+		numbers++;
 	}
-	for (n <= 'f'; n++)
+	while (letters <= 'f')
 	{
-		putchar(n);
+		putchar(letters);
+		letters++;
 	}
 	putchar('\n');
 	return (0);
