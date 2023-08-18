@@ -1,6 +1,7 @@
 #include "main.h"
+#include <stdio.h>
 /**
- * print_diagonal - function that draws a diagonal line on the terminal
+ * print_diagonal - a function that draws a diagonal line on the terminal
  * @n: function parameter
  * Return: 0
  */
@@ -12,22 +13,18 @@ void print_diagonal(int n)
 	}
 	else
 	{
-		int x, y;
+		int k, j;
 
-		for (x = 0; x < n; x++)
+		for (k = 0; k < n; k++)
 		{
-			for (y = 0; y < n; y++)
+			for (j = 0; j < n; j++)
 			{
-				if (y == x)
-				{
+				if (j == k)
 					_putchar('\\');
-				}
-				else if (y < x)
-				{
-					_putchar(' ');
-				}
+				else if (j < k)
+					putchar(' ');
 			}
+			_putchar('\n');
 		}
 	}
-	_putchar('\n');
 }
