@@ -1,25 +1,26 @@
 #include "main.h"
+#include <stdio.h>
 /**
- * rev_strig - reverse array
- * @n: integer params
+ * rev_strig - reverse string
+ * @n: parameter
  * Return: 0
  */
 void rev_string(char *n)
 {
-	int i = 0;
 	int j = 0;
-	char temp;
+	int k = 0;
+	char c;
 
-	while (*(n + i) != '\0')
+	while (*(n + j) != '\0')
 	{
-		i++;
+		j++;
 	}
-	i--;
-	for (j = 0; j < i; j++, i--)
+	j--;
+	for (k = 0; k < j; k++, j--)
 	{
-		temp = *(n + j);
-		*(n + j) = *(n + i);
-		*(n + i) = temp;
+		c = *(n + k);
+		*(n + k) = *(n + j);
+		*(n + j) = c;
 	}
 }
 /**
@@ -33,42 +34,44 @@ void rev_string(char *n)
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int overflow = 0, i = 0, j = 0, digits = 0;
-	int val1 = 0, val2 = 0, temp_tot = 0;
+	int i = 0, j = 0, k = 0, m = 0;
+	int a = 0, b = 0, c = 0;
 
-	while (*(n1 + i) != '\0')
-		i++;
-	while (*(n2 + j) != '\0')
+	while (*(n1 + j) != '\0')
 		j++;
-	i--;
+	while (*(n2 + k) != '\0')
+		k++;
 	j--;
-	if (j >= size_r || i >= size_r)
-		return (0);
-	while (j >= 0 || i >= 0 || overflow == 1)
+	k--;
+	if (k >= size_r || j >= size_r)
 	{
-		if (i < 0)
-			val1 = 0;
-		else
-			val1 = *(n1 + i) - '0';
-		if (j < 0)
-			val2 = 0;
-		else
-			val2 = *(n2 + j) - '0';
-		temp_tot = val1 + val2 + overflow;
-		if (temp_tot >= 10)
-			overflow = 1;
-		else
-			overflow = 0;
-		if (digits >= (size_r - 1))
-			return (0);
-		*(r + digits) = (temp_tot % 10) + '0';
-			digits++;
-		j--;
-		i--;
-	}
-	if (digits == size_r)
 		return (0);
-	*(r + digits) = '\0';
-		rev_string(r);
+	}
+	while (k >= 0 || j >= 0 || i == 1)
+	{
+		if (j < 0)
+			a = 0;
+		else
+			a = *(n1 + j) - '0';
+		if (k < 0)
+			b = 0;
+		else
+			b = *(n2 + k) - '0';
+		c = a + b + i;
+		if (c >= 10)
+			i = 1;
+		else
+			i = 0;
+		if (m >= (size_r - 1))
+			return (0);
+		*(r + m) = (c % 10) + '0';
+		m++;
+		k--;
+		j--;
+	}
+	if (m == size_r)
+		return (0);
+	*(r + m) = '\0';
+	rev_string(r);
 	return (r);
 }
