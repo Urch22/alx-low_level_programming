@@ -1,8 +1,8 @@
 #include "main.h"
 #include <stdio.h>
 /**
- * rev_strig - reverse string
- * @n: parameter
+ * rev_string - reverse string
+ * @n: function parameter
  * Return: 0
  */
 void rev_string(char *n)
@@ -16,22 +16,24 @@ void rev_string(char *n)
 		j++;
 	}
 	j--;
-	for (k = 0; k < j; k++, j--)
+
+	for (k = 0 ; k < j ; k++, j--)
 	{
 		c = *(n + k);
 		*(n + k) = *(n + j);
 		*(n + j) = c;
 	}
 }
+
 /**
- * infinite_add - function that adds two numbers
- * Parameters:
- * @n1: Parameter 1
- * @n2: Parameter 2
- * @r: Parameter 3
- * @size_r: Parameter 4
- * Return: Pointer to calling function
+ * infinite_add - C program to add two numbers
+ * @n1: pointer to first number
+ * @n2: pointer to second number
+ * @r: pointer to storage
+ * @size_r: buffer size
+ * Return: pointer to result
  */
+
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
 	int i = 0, j = 0, k = 0, m = 0;
