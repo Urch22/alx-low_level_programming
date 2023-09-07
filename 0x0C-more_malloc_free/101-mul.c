@@ -1,118 +1,97 @@
 #include "main.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <ctype.h>
+#define ERR_MSG "Error"
 /**
- * _is_zero - determines if any number is zero
- * @argv: Function parameter
- * Return: 0
+ * is_digit - checks if a string contains a non-digit char
+ * @s: Functiom parameter
+ * Return: 0 if a non-digit is found, 1 otherwise
  */
-void _is_zero(char *argv[])
+int is_digit(char *s)
 {
-	int i, j = 1, k = 1;
+	int i = 0;
 
-	for (i = 0; argv[1][i]; i++)
-		if (argv[1][i] != '0')
-		{
-		j = 0;
-			break;
-		}
-	for (i = 0; argv[2][i]; i++)
-		if (argv[2][i] != '0')
-		{
-			k = 0;
-			break;
-		}
-	if (j == 1 || k == 1)
+	while (s[i])
 	{
-		printf("0\n");
-		exit(0);
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
 	}
+	return (1);
 }
 
 /**
- * _initialize_array - set memery to zero in a new array
- * @ar: Function parameter 1
- * @lar:Function parameter 2
- * Return: pointer of a char array.
+ * _strlen - returns the length of a string
+ * @s: Function parameter
+ * Return: the length of the string
  */
-char *_initialize_array(char *ar, int lar)
+int _strlen(char *s)
 {
-	int k = 0;
+	int i = 0;
 
-	for (k = 0; k < lar; k++)
-		ar[k] = '0';
-	ar[lar] = '\0';
-	return (ar);
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
 }
 
 /**
- * _checknum - determines length of the number
- * and checks if number is in base 10.
- * @argv: Function parameter 1
- * @n: Function parameter 2
- * Return: length of the number.
+ * errors - handles errors for main
  */
-int _checknum(char *argv[], int n)
+void errors(void)
 {
-	int k;
-
-	for (k = 0; argv[n][k]; k++)
-		if (!isdigit(argv[n][k]))
-		{
-			printf("Error\n");
-			exit(98);
-		}
-	return (k);
+	printf("Error\n");
+	exit(98);
 }
 
 /**
- * main - Entry point.
- * program that multiplies two positive numbers.
+ * main - multiplies two positive numbers
  * @argc: Function parameter 1
  * @argv: Function parameter 2
- * Return: 0
+ * Return: always 0 (Success)
  */
 int main(int argc, char *argv[])
 {
-	int ln1, ln2, lnout, add, addl, i, j, k, ca;
-	char *p;
+	char *s1, *s2;
+	int len1, len2, len, i, carry, digit1, digit2, *result, a = 0;
 
-	if (argc != 3)
-		printf("Error\n"), exit(98);
-	ln1 = _checknum(argv, 1), ln2 = _checknum(argv, 2);
-	_is_zero(argv), lnout = ln1 + ln2, p = malloc(lnout + 1);
-	if (p == NULL)
-		printf("Error\n"), exit(98);
-	p = _initialize_array(p, lnout);
-	k = lnout - 1, i = ln1 - 1, j = ln2 - 1, ca = addl = 0;
-	for (; k >= 0; k--, i--)
+	s1 = argv[1], s2 = argv[2];
+
+	if (argc != 3 || !is_digit(s1) || !is_digit(s2))
+		errors();
+	len1 = _strlen(s1);
+	len2 = _strlen(s2);
+	len = len1 + len2 + 1;
+	result = malloc(sizeof(int) * len);
+	if (!result)
+		return (1);
+	for (i = 0; i <= len1 + len2; i++)
+		result[i] = 0;
+	for (len1 = len1 - 1; len1 >= 0; len1--)
 	{
-		if (i < 0)
+		digit1 = s1[len1] - '0';
+		carry = 0;
+		for (len2 = _strlen(s2) - 1; len2 >= 0; len2--)
 		{
-			if (addl > 0)
-			{
-				add = (p[k] - '0') + addl;
-				if (add > 9)
-					p[k - 1] = (add / 10) + '0';
-				p[k] = (add % 10) + '0';
-			}
-			i = ln1 - 1, j--, addl = 0, ca++, k = lnout - (1 + ca);
+			digit2 = s2[len2] - '0';
+			carry += result[len1 + len2 + 1] + (digit1 * digit2);
+			result[len1 + len2 + 1] = carry % 10;
+			carry /= 10;
 		}
-		if (j < 0)
-		{
-			if (p[0] != '0')
-				break;
-			lnout--;
-			free(p), p = malloc(lnout + 1), p = _initialize_array(p, lnout);
-			k = lnout - 1, i = ln1 - 1, j = ln2 - 1, ca = addl = 0;
-		}
-		if (j >= 0)
-		{
-			add = ((argv[1][i] - '0') * (argv[2][j] - '0')) + (p[k] - '0') + addl;
-			addl = add / 10, p[k] = (add % 10) + '0';
-		}
+		if (carry > 0)
+			result[len1 + len2 + 1] += carry;
 	}
-	printf("%s\n", p);
+	for (i = 0; i < len - 1; i++)
+	{
+		if (result[i])
+			a = 1;
+		if (a)
+			_putchar(result[i] + '0');
+	}
+	if (!a)
+		_putchar('0');
+	_putchar('\n');
+	free(result);
 	return (0);
 }
