@@ -83,8 +83,7 @@ int main(int argc, char *argv[])
 		}
 		if (carry > 0)
 			result[len1 + len2 + 1] += carry;
-	}
-	for (i = 0; i < len - 1; i++)
+	} for (i = 0; i < len - 1; i++)
 	{
 		if (result[i])
 			a = 1;
