@@ -1,6 +1,6 @@
 #include "main.h"
 
-int actual_sqrt_recursion(int n, int  x);
+int actual_sqrt_recursion(int n, int  i);
 
 /**
  * _sqrt_recursion - function that returns
@@ -12,10 +12,7 @@ int _sqrt_recursion(int n)
 {
 	if (n < 0)
 		return (-1);
-	else if (n == 0)
-		return (0);
-	else
-		return (actual_sqrt_recursion(n, 1));
+	return (actual_sqrt_recursion(n, 0));
 }
 
 /**
@@ -24,12 +21,11 @@ int _sqrt_recursion(int n)
  * @n: Function parameter 1
  * @x: Function parameter 2
  */
-int actual_sqrt_recursion(int n, int  x)
+int actual_sqrt_recursion(int n, int  i)
 {
-	if (x * x == n)
-		return (x);
-	else if (x * x > n)
+	if (i * i == n)
+		return (i);
+	if (i * i > n)
 		return (-1);
-	else
-		return (actual_sqrt_recursion(n, x + 1));
+	return (actual_sqrt_recursion(n, i + 1));
 }
