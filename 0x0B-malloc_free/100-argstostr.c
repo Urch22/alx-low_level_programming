@@ -4,7 +4,7 @@
  * argstostr - function that concatenates all arguments of your program
  * @ac: Function parameter 1
  * @av: Function parameter 2
- * Return: pointer of an array of char
+ * Return: 0
  */
 char *argstostr(int ac, char **av)
 {
@@ -23,7 +23,7 @@ char *argstostr(int ac, char **av)
 			k++;
 		k++;
 	}
-	ptr = malloc((c + 1) * sizeof(char));
+	ptr = malloc((k + 1) * sizeof(char));
 
 	if (ptr == NULL)
 	{
@@ -43,5 +43,5 @@ char *argstostr(int ac, char **av)
 			ptr[len] = av[i][j];
 	}
 	ptr[len] = '\0';
-	return (aout);
+	return (ptr);
 }
