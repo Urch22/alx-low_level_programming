@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-void __attribute__ ((constructor)) nmain()
+void __attribute__((constructor)) hare(void);
 
 /**
- * nmain - Function executed before main
- * Return: 0
+ * hare - Prints a string before the
+ *   main function is executed.
  */
-void bmain()
+void hare(void)
 {
-	printf("You're beat! and yet, you must allow,\n"
-	"I bore my house upon my back!\n");
+printf("You're beat! and yet, you must allow,\n"
+"I bore my house upon my back!\n");
 }
