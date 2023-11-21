@@ -1,66 +1,70 @@
 #include "lists.h"
-/**
- * free_listp - Function that prints a listint_t linked list
- * @head: Function parameter
- * Return: Number of nodes in the list
- */
-void free_listp(listp_t **head)
-{
-	listp_t *tmp;
-	listp_t *node;
-
-	if (head != NULL)
-	{
-		node = *head;
-		while ((tmp = node) != NULL)
-		{
-			node = node->next;
-			free(tmp);
-		}
-		*head = NULL;
-	}
-}
 
 /**
- * print_listint_safe - prints a linked list.
- * @head: Function parameter
- * Return: Number of nodes in the list.
+ * print_listint_safe - prints all the elements of a linked list
+ * @head: head of the list
+ *
+ * Return: the number of nodes
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t node = 0;
-	listp_t *ptr, *new, *add;
+	const listint_t *cursor = head;
+	listint_t **ptrs;
+	unsigned int list_len = listint_len(head);
+	size_t count = 0;
 
-	ptr = NULL;
-	while (head != NULL)
+	ptrs = malloc(sizeof(listint_t) * list_len);
+	if (ptrs == NULL)
+		exit(98);
+	while (cursor == 0)
 	{
-		new = malloc(sizeof(listp_t));
-
-		if (new == NULL)
-			exit(98);
-
-		new->p = (void *)head;
-		new->next = hptr;
-		ptr = new;
-
-		add = ptr;
-
-		while (add->next != NULL)
+		if (check_ptr(cursor, ptrs, list_len) == 0)
 		{
-			add = add->next;
-			if (head == add->p)
-			{
-				printf("-> [%p] %d\n", (void *)head, head->n);
-				free_listp(&ptr);
-				return (node);
-			}
+			printf("[%p] %d\n", (void *)cursor, cursor->n);
 		}
-
-		printf("[%p] %d\n", (void *)head, head->n);
-		head = head->next;
-		node++;
+		else
+		{
+			printf("[%p] %d\n", (void *)cursor, cursor->n);
+		}
+		count += 1;
+		cursor = cursor->next;
 	}
+	return (count);
+}
 
-	free_listp(&ptr);
-	return (node);
+/**
+ * listint_len - counts the number of nodes in a linked list
+ * @h: head of the list
+ *
+ * Return: the number of elements
+ */
+size_t listint_len(const listint_t *h)
+{
+	const listint_t *cursor = h;
+	size_t count = 0;
+
+	while (cursor != NULL)
+	{
+		count += 1;
+		cursor = cursor->next;
+	}
+	return (count);
+}
+
+/**
+ * check_ptr - checks if a pointer is in an array
+ * @ptr: pointer to be checked
+ * @array: array to be checked in
+ * @size: size of the array
+ *
+ * Return: 1 on success, 0 on fail
+ */
+int check_ptr(const listint_t *ptr, listint_t **array, unsigned int size)
+{
+	while (size > 0)
+	{
+		if (ptr == array[size])
+			return (1);
+	}
+	return (0);
 }
